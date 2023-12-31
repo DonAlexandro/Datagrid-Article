@@ -21,9 +21,7 @@ export const Home: React.FC = () => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState({});
 
-  const [findAll, { data: games, isLoading: gamesLoading }] = gameAPI.useLazyFindAllQuery();
-
-  const loading = useMemo(() => gamesLoading, [gamesLoading]);
+  const [findAll, { data: games, isLoading }] = gameAPI.useLazyFindAllQuery();
 
   const sort = useMemo(() => sorting.map((sortItem) => `${sortItem.id}:${sortItem.desc ? 'desc' : 'asc'}`), [sorting]);
 
@@ -107,7 +105,7 @@ export const Home: React.FC = () => {
         id="games"
         columns={columns}
         data={games?.data}
-        loading={loading}
+        loading={isLoading}
         setCollapsible={setCollapsible}
         search={search}
         pagination={{

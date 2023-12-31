@@ -94,7 +94,7 @@ export const DataGrid = <R,>({
               ))}
         </TableBody>
       </Table>
-      <Pagination pagination={pagination} />
+      {pagination?.count && <Pagination pagination={pagination} />}
     </TableContainer>
   );
 };

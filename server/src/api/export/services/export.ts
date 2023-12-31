@@ -18,11 +18,11 @@ export default () => ({
       const columnNames = ['Title', 'Description', 'Short Description', 'Price', 'Genres'];
 
       const exportType = {
-        xlsx: exportAsXlsx(columnNames, games),
-        csv: exportAsCsv(columnNames, games),
+        xlsx: exportAsXlsx,
+        csv: exportAsCsv,
       };
 
-      return exportType[format];
+      return exportType[format](columnNames, games);
     } catch (err) {
       return err;
     }

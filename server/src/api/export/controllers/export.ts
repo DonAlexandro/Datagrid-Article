@@ -1,7 +1,3 @@
-/**
- * A set of functions called "actions" for `export`
- */
-
 import { QueryParamsType } from '../interface';
 
 export default {
@@ -9,11 +5,19 @@ export default {
     try {
       const query = ctx.request.query as QueryParamsType;
 
+      if (!query.entity || !query.format) {
+        throw new Error('Invalid query parameters');
+      }
+
       const exportEntities = {
-        games: strapi.service('api::export.export').exportGames(query.format),
+        games: strapi.service('api::export.export').exportGames,
       };
 
-      const bufferData = await exportEntities[query.entity];
+      if (!exportEntities[query.entity]) {
+        throw new Error('Entity is not defined');
+      }
+
+      const bufferData = await exportEntities[query.entity](query.format);
 
       ctx.body = bufferData;
     } catch (err) {

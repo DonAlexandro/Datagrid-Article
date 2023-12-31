@@ -21,7 +21,7 @@ services:
       - database
 
   database:
-    image: postgres
+    image: postgres:15
     container_name: datagrid_database
     ports:
       - 5433:5432

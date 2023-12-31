@@ -3,11 +3,7 @@ import { DataGridProps } from '../interface';
 
 type PaginationProps<R> = Pick<DataGridProps<R>, 'pagination'>;
 
-export const Pagination = <R,>({ pagination: state }: PaginationProps<R>) => {
-  if (!state || !state.count) {
-    return null;
-  }
-
+export const Pagination = <R,>({ pagination: state }: Required<PaginationProps<R>>) => {
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     state.setState({ pageSize: parseInt(event.target.value, 10), page: 1 });
   };
@@ -19,7 +15,7 @@ export const Pagination = <R,>({ pagination: state }: PaginationProps<R>) => {
   return (
     <TablePagination
       rowsPerPageOptions={[5, 10, 20, 50, 100]}
-      count={state.count}
+      count={state.count!}
       page={state.page - 1}
       onRowsPerPageChange={handleChangeRowsPerPage}
       onPageChange={handleChangePage}
